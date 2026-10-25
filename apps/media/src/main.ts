@@ -20,7 +20,7 @@ async function bootstrap() {
   );
   app.enableShutdownHooks();
   await app.listen();
-  await Logger.log('Media microservice (TCP) listening on port ${port}');
+  await logger.log('Media microservice (TCP) listening on port ${port}');
 
 }
 bootstrap(); 
