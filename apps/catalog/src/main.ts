@@ -1,8 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import { CatalogModule } from './catalog.module.js';
+import { NestFactory } from "@nestjs/core";
+import { CatalogModule } from "./catalog.module.js";
+import { Logger } from "@nestjs/common";
 
 async function bootstrap() {
-  const app = await NestFactory.create(CatalogModule);
-  await app.listen(process.env.port ?? 3000);
+  process.title = 'catalog';
+  const logger = new Logger('CatalogBootstrap');
+  const port = Number(process.env.CATALOG_TCP_PORT ?? 4011);
+  
+
 }
-await bootstrap();
+bootstrap();
