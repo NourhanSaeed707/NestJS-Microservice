@@ -33,6 +33,9 @@
     },
     {
       "path": "./apps/catalog/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/media/tsconfig.app.json"
     }
   ]
 }
