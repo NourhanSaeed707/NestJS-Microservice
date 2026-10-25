@@ -4,8 +4,7 @@
   "sourceRoot": ".",
   "compilerOptions": {
     "deleteOutDir": true,
-    "builder": "rspack",
-    "tsConfigPath": "apps/nestjs-microservices/tsconfig.app.json"
+    "builder": "rspack"
   },
   "monorepo": true,
   "root": ".",
