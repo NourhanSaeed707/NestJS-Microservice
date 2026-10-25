@@ -17,6 +17,9 @@ async function bootstrap() {
       }
     }
   );
+  app.enableShutdownHooks();
+  await app.listen();
+  logger.log(`Catalog microservice (TCP) listening on port ${port}`);
 
 
 }
