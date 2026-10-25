@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/nestjs-microservices",
   "projects": {
+    "catalog": {
+      "type": "application",
+      "root": "apps/catalog",
+      "entryFile": "main",
+      "sourceRoot": "apps/catalog/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/catalog/tsconfig.app.json"
+      }
+    },
     "gateway": {
       "type": "application",
       "root": "apps/gateway",

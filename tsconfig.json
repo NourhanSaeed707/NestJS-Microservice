@@ -30,6 +30,9 @@
     },
     {
       "path": "./apps/gateway/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/catalog/tsconfig.app.json"
     }
   ]
 }
