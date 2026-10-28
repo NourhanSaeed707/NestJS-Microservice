@@ -7,7 +7,7 @@ async function bootstrap() {
   process.title = 'Media';
   const logger = new Logger('SearchBoostrap');
   const rmqUrl = process.env.RABBITMQ_URL ?? "amqp://localhost:5672";
-  const queue = process.env.MEDIA_QUEUE ?? 'catalog_queue';
+  const queue = process.env.SEARCH_QUEUE ?? 'search_queue';
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     SearchModule,
     {

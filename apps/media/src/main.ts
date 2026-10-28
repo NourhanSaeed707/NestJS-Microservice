@@ -8,7 +8,7 @@ async function bootstrap() {
   process.title = 'media';
   const logger = new Logger('MediaBootstrap');
   const rmqUrl = process.env.RABBITMQ_URL ?? "amqp://localhost:5672";
-  const queue = process.env.MEDIA_QUEUE ?? 'catalog_queue';
+  const queue = process.env.MEDIA_QUEUE ?? 'media_queue';
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     MediaModule,
     {
