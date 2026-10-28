@@ -1,11 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 import { GatewayService } from './gateway.service.js';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 
 @Controller()
 export class GatewayController {
-  constructor(private readonly gatewayService: GatewayService) { }
+  constructor(
+    private readonly gatewayService: GatewayService,
+    @Inject('CATALOG_CLIENT') private readonly catalogClient: ClientProxy,
+    @Inject('MEDIA_CLIENT') private readonly mediaClient: ClientProxy,
+    @Inject('SEARCH_CLIENT') private readonly searchClient: ClientProxy,
+  ) { }
 
   @Get('/health')
   async health() {
@@ -27,5 +32,8 @@ export class GatewayController {
         }
       }
     }
+    const [] = await Promise.all([
+      ping('catalog',)
+    ])
   }
 }
