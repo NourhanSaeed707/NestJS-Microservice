@@ -32,8 +32,23 @@ export class GatewayController {
         }
       }
     }
-    const [] = await Promise.all([
-      ping('catalog',)
-    ])
+    const [catalog, media, search] = await Promise.all([
+      ping('catalog', this.catalogClient),
+      ping('media', this.mediaClient),
+      ping('search', this.mediaClient),
+    ]);
+    const ok = [catalog, media, search].every((s) => s.ok);
+    return {
+      ok,
+      gateway: {
+        service: 'gateway',
+        now: new Date().toISOString()
+      },
+      services: {
+        catalog,
+        media,
+        search
+      }
+    }
   }
 }
