@@ -2,6 +2,7 @@ import { NestFactory } from "@nestjs/core";
 import { CatalogModule } from "./catalog.module.js";
 import { Logger } from "@nestjs/common";
 import { MicroserviceOptions, Transport } from "@nestjs/microservices";
+import { isDurable } from "@nestjs/core/helpers/is-durable.js";
 
 async function bootstrap() {
   process.title = 'catalog';
@@ -12,16 +13,19 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     CatalogModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.RMQ,
       options: {
-        host: '0.0.0.0',
-        port,
+        urls: [rmqUrl],
+        queue,
+        queueOptions: {
+          durable: true
+        }
       }
     }
   );
   app.enableShutdownHooks();
   await app.listen();
-  logger.log(`Catalog microservice (TCP) listening on port ${port}`);
+  logger.log(`Catalog RMQ listening on queue ${port} via ${rmqUrl}`);
 
 
 }
