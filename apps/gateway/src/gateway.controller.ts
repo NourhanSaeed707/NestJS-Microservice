@@ -16,7 +16,7 @@ export class GatewayController {
   async health() {
     const ping = async (serviceName: string, client: ClientProxy) => {
       try {
-        const result = await firstValueFrom(
+          const result = await firstValueFrom(
           client.send('service.ping', { from: 'gateway' })
         )
         return {
@@ -35,7 +35,7 @@ export class GatewayController {
     const [catalog, media, search] = await Promise.all([
       ping('catalog', this.catalogClient),
       ping('media', this.mediaClient),
-      ping('search', this.mediaClient),
+      ping('search', this.searchClient),
     ]);
     const ok = [catalog, media, search].every((s) => s.ok);
     return {
