@@ -7,7 +7,6 @@ import { isDurable } from "@nestjs/core/helpers/is-durable.js";
 async function bootstrap() {
   process.title = 'catalog';
   const logger = new Logger('CatalogBootstrap');
-  const port = Number(process.env.CATALOG_TCP_PORT ?? 4011);
   const rmqUrl = process.env.RABBITMQ_URL ?? "amqp://localhost:5672";
   const queue = process.env.CATALOG_QUEUE ?? 'catalog_queue';
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -25,7 +24,7 @@ async function bootstrap() {
   );
   app.enableShutdownHooks();
   await app.listen();
-  logger.log(`Catalog RMQ listening on queue ${port} via ${rmqUrl}`);
+  logger.log(`Catalog RMQ listening on queue ${queue} via ${rmqUrl}`);
 
 
 }
