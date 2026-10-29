@@ -15,6 +15,7 @@ export class GatewayController {
   @Get('/health')
   async health() {
     const ping = async (serviceName: string, client: ClientProxy) => {
+      console.log(serviceName);
       try {
           const result = await firstValueFrom(
           client.send('service.ping', { from: 'gateway' })
