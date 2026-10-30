@@ -25,6 +25,11 @@ export class UserService {
         $setOnInsert: {
           role: 'user'
         }
+      },
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true
       }
     );
   }
