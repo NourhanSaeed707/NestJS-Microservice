@@ -33,4 +33,8 @@ export class UserService {
       }
     );
   }
+
+  async findByClerkUserId(clerkUserId: string) {
+    return this.userModel.findOne({});
+  }
 }
