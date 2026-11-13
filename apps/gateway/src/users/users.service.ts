@@ -17,19 +17,19 @@ export class UserService {
         clerkUserId: input.clerkUserId
       },
       {
-        $set: {
+        $set: { // This will update the fields if the document already exists
           email: input.email,
           name: input.name,
           lastSeenAt: now
         },
-        $setOnInsert: {
+        $setOnInsert: { // This will set the fields only if a new document is created
           role: 'user'
         }
       },
       {
-        new: true,
-        upsert: true,
-        setDefaultsOnInsert: true
+        new: true, // This will return the updated document rather than the original
+        upsert: true, // This will create a new document if no document matches the filter
+        setDefaultsOnInsert: true // This will apply the default values specified in the schema when creating a new document
       }
     );
   }
