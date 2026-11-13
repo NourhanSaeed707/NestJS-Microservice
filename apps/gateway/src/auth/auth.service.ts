@@ -1,5 +1,5 @@
 import { createClerkClient, verifyToken } from '@clerk/backend';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserContext } from './auth.types.js';
 
 @Injectable()
@@ -16,19 +16,33 @@ export class AuthService {
   }
 
   async verifyAndBuildContext(token: string): Promise<UserContext | null> {
-    try{
+    try {
       const verified: any = await verifyToken(token, this.jwtVerifyOptions());
       // decoded payload
       const payload = verified.payload ?? verified?.payload ?? verified;
       // clerk user id -> payload.sub
       const clerkUserId = payload?.sub ?? payload?.userId;
-      if(!clerkUserId) {
-        throw new Error('Clerk user ID not found in token payload');
+      if (!clerkUserId) {
+        throw new UnauthorizedException('Token is missing user id ');
       }
-    }
-    catch (error) {
+      const role: 'user' | 'admin' = 'user';
+      const emailFromToken =
+        payload?.email ??
+        payload?.email_address ??
+        payload?.primaryEmailAddress ??
+        '';
+      const nameFromToken =
+        payload?.name ?? payload?.fullName ?? payload?.username ?? '';
+      if (emailFromToken && nameFromToken) {
+        return {
+          clerkUserId,
+          email: emailFromToken,
+          name: nameFromToken,
+          role,
+        };
+      }
+    } catch (error) {
       console.error('Error verifying token:', error);
     }
-
   }
 }
