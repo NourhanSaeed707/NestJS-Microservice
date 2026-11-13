@@ -41,8 +41,22 @@ export class AuthService {
           role,
         };
       }
+      // This will fetch the current user from Clerk's API if it's not exists it token.
+      const user = await this.clerk.users.getUser(clerkUserId);
+      const primaryEmail = user.emailAddresses.find(
+        (email) => email.id === user.primaryEmailAddressId,
+      );
+      user.emailAddresses[0]?.emailAddress;
+      const fullName = [user.firstName, user.lastName].filter(Boolean).join(' ') ||
+      user.username || primaryEmail || clerkUserId;
+      return {
+        clerkUserId,
+        email: emailFromToken || primaryEmail  ,
+        name: nameFromToken || fullName,
+        role,
+      };
     } catch (error) {
-      console.error('Error verifying token:', error);
+       throw new UnauthorizedException('Invalid token or expired', error);
     }
   }
 }
