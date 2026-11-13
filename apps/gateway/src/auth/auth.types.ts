@@ -4,5 +4,5 @@ export type UserContext = {
    name: string,
    email: string,
    role: 'user' | 'admin',
-   isAdmin: boolean
+  
 }
