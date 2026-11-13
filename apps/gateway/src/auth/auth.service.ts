@@ -55,7 +55,7 @@ export class AuthService {
         name: nameFromToken || fullName,
         role,
       };
-    } catch (error) {
+    } catch (error: any) {
        throw new UnauthorizedException('Invalid token or expired', error);
     }
   }
