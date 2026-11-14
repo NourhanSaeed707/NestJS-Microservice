@@ -37,5 +37,12 @@ export class JwtAuthGuard implements CanActivate {
     if (!token) {
         throw new UnauthorizedException('Misssing token');
     }
+    // verify the token 
+    const identifyAuthUser = await this.authService.verifyAndBuildContext(token);
+    const dbUser = await this.userService.upsertAuthUser({
+        clerkUserId: identifyAuthUser.clerkUserId,
+        name: identifyAuthUser.name,
+        email: identifyAuthUser.email,
+    })
   }
 }
